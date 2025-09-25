@@ -615,10 +615,7 @@ lsof -ti:27017 # MongoDB port
 4. Add tests if applicable
 5. Submit a pull request
 
-## License
-
-This project is licensed under the ISC License.
 
 ## Contact
 
-For questions or support, please contact the development team.
+For questions or support, please contact [Anurag Majumdar](mailto:anuragmajumdar941@gmail.com).
