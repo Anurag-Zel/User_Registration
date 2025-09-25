@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { authAPI } from '../services/api';
+import { authAPI, userAPI } from '../services/api';
 
 const AuthContext = createContext();
 
@@ -95,6 +95,28 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
+  const deleteAccount = async (password) => {
+    try {
+      setLoading(true);
+      const response = await userAPI.deleteProfile(password);
+      
+      if (response.success) {
+        // Clear user data and logout
+        authAPI.logout();
+        setUser(null);
+        setIsAuthenticated(false);
+        return { success: true, message: response.message };
+      } else {
+        return { success: false, message: response.message };
+      }
+    } catch (error) {
+      const message = error.response?.data?.message || 'Account deletion failed';
+      return { success: false, message };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const value = {
     user,
     loading,
@@ -102,7 +124,8 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     logout,
-    updateUser
+    updateUser,
+    deleteAccount
   };
 
   return (

@@ -66,7 +66,55 @@ const updateProfile = async (req, res) => {
   }
 };
 
+const deleteProfile = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { password } = req.body;
+
+    // Verify password before deletion
+    if (!password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Password is required to delete account'
+      });
+    }
+
+    // Find user and verify password
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    const isPasswordValid = await user.comparePassword(password);
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid password. Account deletion failed.'
+      });
+    }
+
+    // Delete the user account
+    await User.findByIdAndDelete(userId);
+
+    res.json({
+      success: true,
+      message: 'Account deleted successfully'
+    });
+
+  } catch (error) {
+    console.error('Profile deletion error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error while deleting profile'
+    });
+  }
+};
+
 module.exports = {
   getProfile,
-  updateProfile
+  updateProfile,
+  deleteProfile
 };

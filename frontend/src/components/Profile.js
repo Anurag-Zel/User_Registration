@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../contexts/AuthContext';
 import { userAPI } from '../services/api';
+import DeleteProfileModal from './DeleteProfileModal';
 import './Profile.css';
 
 const Profile = () => {
@@ -10,6 +11,7 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const {
     register,
@@ -85,9 +87,17 @@ const Profile = () => {
           <h1>Profile</h1>
           <p>Manage your account information</p>
         </div>
-        <button onClick={handleLogout} className="logout-button">
-          Logout
-        </button>
+        <div className="profile-actions">
+          <button 
+            onClick={() => setShowDeleteModal(true)} 
+            className="delete-account-button"
+          >
+            Delete Account
+          </button>
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>
+        </div>
       </div>
 
       {message && (
@@ -288,6 +298,11 @@ const Profile = () => {
           </div>
         )}
       </div>
+
+      <DeleteProfileModal 
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+      />
     </div>
   );
 };

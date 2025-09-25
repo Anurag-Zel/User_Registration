@@ -7,6 +7,7 @@ A full-stack recruitment platform prototype built with Node.js, Express.js, Mong
 - **User Registration**: Users can sign up with email, password, and basic profile information
 - **User Authentication**: JWT-based login system with secure password hashing
 - **User Profile Management**: View and edit personal profile information
+- **Account Deletion**: Secure account deletion with password confirmation
 - **Responsive Design**: Mobile-friendly interface with modern UI/UX
 - **Security**: Rate limiting, input validation, and secure authentication
 
@@ -63,6 +64,22 @@ Colbin_Assignment/
 - Node.js (v14 or higher)
 - MongoDB (local or cloud instance)
 - npm or yarn
+
+### Quick Start
+You can use the provided scripts to quickly start the development environment:
+
+```bash
+# Start both frontend and backend servers (auto-starts MongoDB if needed)
+./start-dev.sh
+
+# Stop all running servers
+./stop-servers.sh
+```
+
+The start script will automatically:
+- Check if MongoDB is running and start it if needed (works on Windows, macOS, and Linux)
+- Install dependencies if they're not already installed
+- Start both backend and frontend servers
 
 ### Backend Setup
 
@@ -237,6 +254,51 @@ Authorization: Bearer <jwt_token>
 }
 ```
 
+#### DELETE /user/profile
+Delete user account (requires authentication).
+
+**Headers:**
+```
+Authorization: Bearer <jwt_token>
+```
+
+**Request Body:**
+```json
+{
+  "password": "user_password"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Account deleted successfully"
+}
+```
+
+## New Features
+
+### Account Deletion Feature
+The application now includes a secure account deletion feature that allows users to permanently delete their accounts:
+
+**Backend Implementation:**
+- `DELETE /api/user/profile` endpoint with password verification
+- Secure password validation before deletion
+- Complete removal of user data from database
+
+**Frontend Implementation:**
+- Delete Account button in profile page
+- Confirmation modal with warning messages
+- Password verification step
+- Automatic logout after successful deletion
+
+**Security Features:**
+- Password confirmation required
+- Two-step confirmation process
+- Clear warning about permanent data loss
+- Secure token validation
+
 ## Database Schema
 
 ### User Collection
@@ -407,6 +469,22 @@ Authorization: Bearer <jwt_token>
 
 ## Development Commands
 
+### Quick Start/Stop Scripts
+```bash
+# Start both servers (backend + frontend)
+./start-dev.sh
+# OR
+npm run setup
+
+# Stop both servers
+./stop-servers.sh
+# OR
+npm run stop
+
+# Install all dependencies
+npm run install-all
+```
+
 ### Backend
 ```bash
 npm run dev    # Start development server with nodemon
@@ -440,11 +518,94 @@ REACT_APP_API_URL=http://localhost:5001/api
 
 To test the application:
 
-1. **Start the backend server** (port 5000)
+1. **Start the backend server** (port 5001)
 2. **Start the frontend server** (port 3000)
 3. **Navigate to** `http://localhost:3000`
 4. **Register a new account** or **login with existing credentials**
 5. **View and edit your profile**
+6. **Test account deletion** with the Delete Account button
+
+## MongoDB Management
+
+### Starting MongoDB
+```bash
+# Start MongoDB service (macOS with Homebrew)
+brew services start mongodb/brew/mongodb-community
+
+# Or start manually
+mongod
+```
+
+### Stopping MongoDB
+```bash
+# Stop MongoDB service (macOS with Homebrew)
+brew services stop mongodb/brew/mongodb-community
+
+# Or stop manually
+pkill mongod
+```
+
+### Database Management
+- **Database Name**: `recruitment_platform`
+- **Collection**: `users`
+- **Connection String**: `mongodb://localhost:27017/recruitment_platform`
+
+### Is it safe to disconnect MongoDB after the project?
+**Yes, it's perfectly safe to stop MongoDB when you're done with the project.** Here's what you need to know:
+
+1. **Development Data**: All data is stored locally and will be preserved
+2. **No Data Loss**: Stopping MongoDB doesn't delete your data
+3. **Easy Restart**: Simply restart MongoDB when you want to work on the project again
+4. **Production Consideration**: In production, you'd use a managed MongoDB service (like MongoDB Atlas)
+
+**To stop MongoDB:**
+```bash
+brew services stop mongodb/brew/mongodb-community
+```
+
+**To restart later:**
+```bash
+brew services start mongodb/brew/mongodb-community
+```
+
+## Development Scripts
+
+The project includes convenient scripts for managing the development environment:
+
+### Start Script (`start-dev.sh`)
+- Automatically installs dependencies if needed
+- Starts MongoDB (if not running)
+- Starts backend server on port 5001
+- Starts frontend server on port 3000
+- Provides helpful status information
+
+### Stop Script (`stop-servers.sh`)
+- Gracefully stops both backend and frontend servers
+- Cleans up any remaining processes
+- Optionally stops MongoDB
+- Provides status check of all ports
+- Shows restart instructions
+
+### Usage Examples
+```bash
+# Start everything
+./start-dev.sh
+# OR
+npm run setup
+
+# Stop everything
+./stop-servers.sh
+# OR
+npm run stop
+
+# Check what's running
+ps aux | grep -E "(node|mongod)"
+
+# Check specific ports
+lsof -ti:5001  # Backend port
+lsof -ti:3000  # Frontend port
+lsof -ti:27017 # MongoDB port
+```
 
 ## Contributing
 

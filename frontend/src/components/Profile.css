@@ -14,6 +14,12 @@
   margin-right: auto;
 }
 
+.profile-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
 .profile-info h1 {
   color: #1a202c;
   font-size: 32px;
@@ -27,8 +33,25 @@
   margin: 0;
 }
 
+.delete-account-button {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delete-account-button:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
 .logout-button {
-  background: #e53e3e;
+  background: #6b7280;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -40,7 +63,7 @@
 }
 
 .logout-button:hover {
-  background: #c53030;
+  background: #4b5563;
   transform: translateY(-1px);
 }
 
@@ -276,6 +299,12 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
+  }
+  
+  .profile-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
   }
   
   .profile-card-header {

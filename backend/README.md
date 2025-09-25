@@ -65,6 +65,7 @@ backend/
 ### User Management
 - `GET /api/user/profile` - Get user profile (requires authentication)
 - `PUT /api/user/profile` - Update user profile (requires authentication)
+- `DELETE /api/user/profile` - Delete user account (requires authentication)
 
 ### Health Check
 - `GET /api/health` - API health status
@@ -96,6 +97,7 @@ npm start
 - **JWT Authentication**: Secure token-based authentication
 - **Input Validation**: Comprehensive validation with express-validator
 - **Error Handling**: Centralized error handling middleware
+- **Account Deletion**: Secure account deletion with password verification
 - **Security**: Helmet, CORS, rate limiting
 - **Database**: MongoDB with Mongoose ODM
 - **Password Security**: bcryptjs for password hashing

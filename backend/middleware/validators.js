@@ -58,8 +58,17 @@ const updateProfileValidation = [
     .withMessage('Bio cannot exceed 500 characters')
 ];
 
+const deleteProfileValidation = [
+  body('password')
+    .notEmpty()
+    .withMessage('Password is required to delete account')
+    .isLength({ min: 6 })
+    .withMessage('Password must be at least 6 characters long')
+];
+
 module.exports = {
   registerValidation,
   loginValidation,
-  updateProfileValidation
+  updateProfileValidation,
+  deleteProfileValidation
 };

@@ -11,7 +11,8 @@
     "test": "cd backend && npm test && cd ../frontend && npm test",
     "start-backend": "cd backend && npm run dev",
     "start-frontend": "cd frontend && npm start",
-    "setup": "./start-dev.sh"
+    "setup": "./start-dev.sh",
+    "stop": "./stop-servers.sh"
   },
   "keywords": [
     "recruitment",

@@ -65,6 +65,11 @@ export const userAPI = {
   updateProfile: async (profileData) => {
     const response = await api.put('/user/profile', profileData);
     return response.data;
+  },
+
+  deleteProfile: async (password) => {
+    const response = await api.delete('/user/profile', { data: { password } });
+    return response.data;
   }
 };
 
