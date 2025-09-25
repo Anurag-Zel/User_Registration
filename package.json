@@ -1,0 +1,34 @@
+{
+  "name": "recruitment-platform",
+  "version": "1.0.0",
+  "description": "A full-stack recruitment platform prototype with user registration, authentication, and profile management",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "cd backend && npm install && cd ../frontend && npm install",
+    "start": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\"",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\"",
+    "build": "cd frontend && npm run build",
+    "test": "cd backend && npm test && cd ../frontend && npm test",
+    "start-backend": "cd backend && npm run dev",
+    "start-frontend": "cd frontend && npm start",
+    "setup": "./start-dev.sh"
+  },
+  "keywords": [
+    "recruitment",
+    "platform",
+    "nodejs",
+    "react",
+    "mongodb",
+    "jwt",
+    "authentication"
+  ],
+  "author": "Anurag Majumdar",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}
